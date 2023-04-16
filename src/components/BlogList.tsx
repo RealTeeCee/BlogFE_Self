@@ -14,11 +14,12 @@ import React, { useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
+import Blog, { Page } from "../models/Blog";
 
 const BlogList = () => {
   const navigate = useNavigate();
 
-  const [blog, setBlog] = useState({
+  const [blog, setBlog] = useState<Page>({
     content: [],
     empty: false,
     first: false,
@@ -31,7 +32,7 @@ const BlogList = () => {
 
   const [isLogin, setIsLogin] = useState(false);
 
-  const getBlogs = async (page) => {
+  const getBlogs = async (page: any) => {
     const resp = await (page
       ? axiosInstance.get(`/blogs?pageNo=${page - 1}`)
       : axiosInstance.get("/blogs"));
@@ -88,20 +89,20 @@ const BlogList = () => {
 
   useEffect(() => {
     if (isLogin) {
-      getBlogs();
+      getBlogs(1);
     }
   }, [isLogin]);
 
-  const handleChange = (_e, page) => {
+  const handleChange = (_e: any, page: any) => {
     getBlogs(page);
   };
   const handleAdd = () => {
     navigate("/blog/create");
   };
-  const handleEdit = (blog) => {
+  const handleEdit = (blog: Blog) => {
     navigate("/blog/edit", { state: { blog } });
   };
-  const handleDelete = (blog) => {};
+  const handleDelete = (blog: any) => {};
 
   return (
     <Container>
@@ -122,8 +123,8 @@ const BlogList = () => {
               <Card>
                 <CardContent>
                   <Typography variant="h4">{item.title}</Typography>
-                  <Typography variant="p">{item.url}</Typography>
-                  <Typography variant="p">{item.rating}</Typography>
+                  <Typography variant="inherit">{item.url}</Typography>
+                  <Typography variant="inherit">{item.rating}</Typography>
                 </CardContent>
                 <CardActions>
                   <Button

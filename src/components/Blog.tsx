@@ -18,7 +18,7 @@ const Blog = () => {
   const isEdit = location.state?.blog.blogId ? true : false;
 
   const initialBlog = {
-    blogId: "",
+    blogId: 0,
     title: "",
     url: "",
     rating: 0,
@@ -26,8 +26,8 @@ const Blog = () => {
 
   const [blog, setBlog] = useState(isEdit ? location.state?.blog : initialBlog);
 
-  const handleChange = (event) => {
-    setBlog((prev) => ({
+  const handleChange = (event: any) => {
+    setBlog((prev: any) => ({
       ...prev,
       [event.target.name]:
         event.target.type === "checkbox"
@@ -106,7 +106,6 @@ const Blog = () => {
           <Grid item xs={12} md={12}>
             <Typography component="legend">Rating</Typography>
             <Rating
-              label="Rating"
               name="rating"
               size="large"
               value={blog.rating}
