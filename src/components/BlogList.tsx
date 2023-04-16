@@ -102,7 +102,26 @@ const BlogList = () => {
   const handleEdit = (blog: Blog) => {
     navigate("/blog/edit", { state: { blog } });
   };
-  const handleDelete = (blog: any) => {};
+  const handleDelete = (deleteBlog: any) => {
+    axiosInstance
+      .post("/blogs/delete", blog)
+      .then((res) => {
+        if (res.status === 200) {
+          const newBlog = blog.content.filter(
+            (item: Blog) => item.blogId !== deleteBlog.blogId
+          );
+          setBlog((prev) => ({
+            ...prev,
+            content: newBlog,
+          }));
+          alert("Delete successfully!");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Delete blog fail!!!");
+      });
+  };
 
   return (
     <Container>

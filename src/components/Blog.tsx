@@ -37,7 +37,7 @@ const Blog = () => {
   };
 
   const handleAdd = () => {
-    const res = axiosInstance
+    axiosInstance
       .post("/blogs/add", blog)
       .then((res) => {
         if (res.status === 201) {
@@ -51,7 +51,7 @@ const Blog = () => {
   };
 
   const handleEdit = () => {
-    const res = axiosInstance
+    axiosInstance
       .put("/blogs/update", blog)
       .then((res) => {
         if (res.status === 200) {
